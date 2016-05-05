@@ -28,7 +28,8 @@ let server = http.createServer(function (req, res) {
         res.end();
       } else {
         let ext = path.extname(url).slice(1);
-        res.setHeader('Content-Type', contentTypes[ext]);
+        //res.setHeader('Content-Type', contentTypes[ext]);
+        res.setHeader('Content-Type', 'text/' + ext);
         if (ext === 'html') {
           res.setHeader('Cache-Control', 'no-cache, no-store');
         }
