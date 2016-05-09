@@ -10,11 +10,15 @@
   "author": "Ionut-Cristian Florescu <ionut.florescu@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^2.0.0",
     "express": "^4.13.4",
+    "instagram-wrapi": "^0.1.0",
     "twitter": "^1.2.5"
   },
   "devDependencies": {
+    "dotenv": "^2.0.0",
     "express": "^4.13.4",
+    "instagram-wrapi": "^0.1.0",
     "twitter": "^1.2.5"
   }
 }
