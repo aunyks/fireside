@@ -3,7 +3,20 @@ const http         = require('http'),
       path         = require('path'),
       contentTypes = require('./utils/content-types'),
       sysInfo      = require('./utils/sys-info'),
+      Twitter      = require('twitter'),
+      Instagram    = require('instagram-wrapi'),
       env          = process.env;
+      
+var twit = new Twitter({
+    consumer_key: env.TWITTER_CONSUMER_KEY,
+    consumer_secret: env.TWITTER_CONSUMER_SECRET,
+    access_token_key: env.ACCESS_TOKEN_KEY,
+    access_token_secret: env.ACCESS_TOKEN_SECRET,
+});
+      
+function getTwitterResults() {
+  
+}
 
 let server = http.createServer(function (req, res) {
   let url = req.url;
@@ -28,7 +41,6 @@ let server = http.createServer(function (req, res) {
         res.end();
       } else {
         let ext = path.extname(url).slice(1);
-        //res.setHeader('Content-Type', contentTypes[ext]);
         res.setHeader('Content-Type', 'text/' + ext);
         if (ext === 'html') {
           res.setHeader('Cache-Control', 'no-cache, no-store');
