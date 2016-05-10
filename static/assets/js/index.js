@@ -1,7 +1,12 @@
-function generateHeader(txt){
+function generateHeader(txt, link){
+    var mLink = $('<a></a>');
+    mLink.attr('href', link);
+    
     var titleTxt = $('<h3></h3>');
     titleTxt.text(txt);
-    return titleTxt;
+    
+    mLink.append(titleTxt);
+    return mLink;
 }
 
 function generateImage(link, src){
@@ -25,7 +30,10 @@ function generateDescription(txt){
     return descTxt;
 }
 
-function generateFooter(origin, username){
+function generateFooter(origin, username, link){
+    var mLink = $('<a></a>');
+    mLink.attr('href', link);
+    
     var div = $('<div></div>');
     div.css({
         'margin-bottom' : '0px',
@@ -44,7 +52,8 @@ function generateFooter(origin, username){
     
     div.append(icon);
     div.append(mUsername);
-    return div;
+    mLink.append(div);
+    return mLink;
 }
 
 function generateItem(data){
@@ -62,13 +71,13 @@ function generateItem(data){
     var img = generateImage(link, picture);
     
     // Generate title
-    var title = generateHeader(title);
+    var title = generateHeader(title, link);
     
     // Generate description
     var description = generateDescription(description);
     
     // Generate icon and username
-    var footer = generateFooter(origin, username);
+    var footer = generateFooter(origin, username, link);
     
     item.append(img);
     item.append(title);
@@ -78,9 +87,19 @@ function generateItem(data){
     return item; 
 }
 
+function getFire(){
+    response = '';
+    $.get( "api", function(responseData) {
+        response = responseData;
+    });
+    
+    return response;
+}
+
 $(document).ready(function(){
     
     // Get server info
+    //var serverData = getFire();
     
     var data = {
         title: 'This is an obj title',
