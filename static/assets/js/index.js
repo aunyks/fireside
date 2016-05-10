@@ -32,7 +32,8 @@ function generateDescription(txt){
 
 function generateFooter(origin, username, link){
     var mLink = $('<a></a>');
-    mLink.attr('href', link);
+    mLink.attr('href', 'https://' + origin+'.com/' + username);
+    mLink.attr('target', '_blank');
     
     var div = $('<div></div>');
     div.css({
