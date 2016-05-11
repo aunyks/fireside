@@ -8,6 +8,15 @@ const http         = require('http'),
       Instagram    = require('instagram-wrapi'),
       env          = process.env;
       
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.split(search).join(replacement);
+};
+
+String.prototype.contains = function(str){
+  return this.indexOf(str) != -1;
+}
+      
 var twit = new Twitter({
     consumer_key: env.TWITTER_CONSUMER_KEY,
     consumer_secret: env.TWITTER_CONSUMER_SECRET,
@@ -36,16 +45,53 @@ let server = http.createServer(function (req, res) {
   } else if(url == '/api' || url == '/api/'){
     
     // Get twitter trending results
-    var tags = [];
-    twit.get('trends/place', {id : '2357011'}, function(error, trends, response){
-      // Find out how to store tags, may require json parsing
+    var TRENDS = [];
+    var USERS = [];
+    var TWEETS = [];
+    var IG = [];
+    
+    twit.get('trends/place', {id : '23424977'}, function(error, trends, response){
+      if(!error){
+        var data = trends[0];
+        
+        for(var i = 0; i < 3; i++){
+          var strTrend = data.trends[i].name;
+          
+          if(strTrend.substring(0, 1) != '#')
+            strTrend = '#' + strTrend;
+            
+          if(strTrend.contains(' '))
+            strTrend = strTrend.replaceAll(' ','');
+            
+            TRENDS.push(strTrend);
+            console.log(strTrend);
+        }
+        
+        // Get five twitter results per tag
+        for(var i = 0; i < TRENDS.length; i++){
+          
+          twit.get('search/tweets', {q : (encodeURIComponent('#') + TRENDS[i]), 
+          result_type : 'popular', count : '5' }, function(error, tweets, response){
+            if(!error){
+              for(var j = 0; j < tweets.statuses.length; j++){
+                TWEETS.push(tweets.statuses[j].text);
+                USERS.push(tweets.statuses[j].user.screen_name);
+              }
+            }
+            
+            ig.tags.media.recent('spring', function(error, data) {
+              if (!error) {
+                console.log(data);
+              } 
+            });
+          });
+          
+        }
+        
+      }
     });
     
-    // Store trending tags
-    
     // Search tags in ig and twitter
-    
-    // Get three twitter results
     
     // Get three ig results
     
