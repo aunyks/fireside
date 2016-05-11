@@ -18,13 +18,13 @@ String.prototype.contains = function(str){
 }
       
 var twit = new Twitter({
-    consumer_key: env.TWITTER_CONSUMER_KEY,
-    consumer_secret: env.TWITTER_CONSUMER_SECRET,
-    access_token_key: env.TWITTER_ACCESS_TOKEN_KEY,
-    access_token_secret: env.TWITTER_ACCESS_TOKEN_SECRET,
+    consumer_key: 'jZ2W9rJsOgo5f9cFwoMycuykg',
+    consumer_secret: 'F2LKABlbItYj5iFmurDg7KkJbqoEJe9yn2thUASWOzQs3xIpe9',
+    access_token_key: '730165507387592704-qHDf74o7a28Bc8g3OciFSfxFKUAXcUb',
+    access_token_secret: 'orsrcajy6EtrCLLV31bu0uAgzDt4n1s0sRXmow6IU0p2h',
 });
 
-var ig = new Instagram(env.INSTAGRAM_ACCESS_TOKEN);
+var ig = new Instagram('3228090595.f9b8fe2.a945feafb967489f8e6d019e0ad8cbf9');
 
 let server = http.createServer(function (req, res) {
   let url = req.url;
