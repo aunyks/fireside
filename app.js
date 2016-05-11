@@ -48,6 +48,7 @@ let server = http.createServer(function (req, res) {
     var TRENDS = [];
     var USERS = [];
     var TWEETS = [];
+    var finalDataStr = '';
     var IG = [];
     
     twit.get('trends/place', {id : '23424977'}, function(error, trends, response){
@@ -76,14 +77,21 @@ let server = http.createServer(function (req, res) {
               for(var j = 0; j < tweets.statuses.length; j++){
                 TWEETS.push(tweets.statuses[j].text);
                 USERS.push(tweets.statuses[j].user.screen_name);
+                
+                if(j == tweets.statuses.length - 1){
+                  var finalData = {
+                    user: USERS,
+                    tweet: TWEETS,
+                    trend: TRENDS
+                  };
+                  
+                  finalDataStr = JSON.stringify(finalData, null, '\t');
+                  res.writeHead(200, {'Content-Type': 'text/json'});
+                  res.end(finalDataStr);
+                }
               }
             }
             
-            ig.tags.media.recent('spring', function(error, data) {
-              if (!error) {
-                console.log(data);
-              } 
-            });
           });
           
         }
@@ -91,18 +99,10 @@ let server = http.createServer(function (req, res) {
       }
     });
     
-    // Search tags in ig and twitter
-    
-    // Get three ig results
-    
-    // Get 
-    
-    // Store in (ig, twit, ig, twit, ig, twit) order
-    
   }else {
     fs.readFile('./static' + url, function (err, data) {
       if (err) {
-        res.writeHead(404);
+        res.writeHead(301, {Location: 'http://fireside-gnash48.rhcloud.com/'});
         res.end();
       } else {
         let ext = path.extname(url).slice(1);

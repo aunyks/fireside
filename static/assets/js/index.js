@@ -24,10 +24,9 @@ function generateImage(link, src){
     return mLink;
 }
 
-function generateDescription(txt){
-    var descTxt = $('<p></p>');
-    descTxt.text(txt);
-    return descTxt;
+function generateDescription(){
+    var hr = $('<hr/>');
+    return hr;
 }
 
 function generateFooter(origin, username, link){
@@ -58,7 +57,6 @@ function generateFooter(origin, username, link){
 }
 
 function generateItem(data){
-    var title = data.title;
     var picture = data.picture;
     var description = data.description;
     var origin = data.origin;
@@ -72,44 +70,48 @@ function generateItem(data){
     var img = generateImage(link, picture);
     
     // Generate title
-    var title = generateHeader(title, link);
+    var title = generateHeader(description, link);
     
     // Generate description
-    var description = generateDescription(description);
+    var partition = generateDescription();
     
     // Generate icon and username
     var footer = generateFooter(origin, username, link);
     
     item.append(img);
     item.append(title);
-    item.append(description);
+    item.append(partition);
     item.append(footer);
     
     return item; 
 }
 
-function getFire(){
-    response = '';
-    $.get( "api", function(responseData) {
-        response = responseData;
-    });
-    
-    return response;
-}
-
 $(document).ready(function(){
     
     // Get server info
-    //var serverData = getFire();
+    $.get( "api", function(responseData) {
+        var serverData = responseData;
+        
+        var data = {
+            picture: '/images/pic02.jpg',
+            description: 'This is an obj title. Yeet yah yeet yah punjabi on the fire track whip drop nae nae',
+            origin: 'instagram',
+            username: 'jack',
+            link: '#'
+        };
+        
+        $('#result').append(generateItem(data));
+        for(var i = 0; i < serverData.user.length; i++){
+            var data = {
+                picture: '/images/pic02.jpg',
+                description: (serverData.tweet)[i],
+                origin: 'twitter',
+                username: (serverData.user)[i],
+                link: '#'
+            };
+            console.log((serverData.tweet)[i]);
+            $('#result').append(generateItem(data));
+        }
     
-    var data = {
-        title: 'This is an obj title',
-        picture: '/images/pic02.jpg',
-        description: 'This is an obj desc',
-        origin: 'instagram',
-        username: 'jack',
-        link: '#'
-    };
-    
-    $('#result').append(generateItem(data));
+    });
 });
