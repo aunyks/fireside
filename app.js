@@ -72,7 +72,7 @@ let server = http.createServer(function (req, res) {
         for(var i = 0; i < TRENDS.length; i++){
           
           twit.get('search/tweets', {q : (encodeURIComponent('#') + TRENDS[i]), 
-          result_type : 'popular', count : '5' }, function(error, tweets, response){
+          result_type : 'popular', count : '6' }, function(error, tweets, response){
             if(!error){
               for(var j = 0; j < tweets.statuses.length; j++){
                 TWEETS.push(tweets.statuses[j].text);

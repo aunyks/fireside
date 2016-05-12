@@ -100,7 +100,7 @@ $(document).ready(function(){
             link: '#'
         };
         
-        $('#result').append(generateItem(data));
+        $('#trends').html($(trends.html()) + serverData.trend[0] + '<br />' + serverData.trend[1] + '<br />' + serverData.trend[2]);
         for(var i = 0; i < serverData.user.length; i++){
             var data = {
                 picture: '/images/pic02.jpg',
