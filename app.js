@@ -68,33 +68,29 @@ let server = http.createServer(function (req, res) {
             console.log(strTrend);
         }
         
-        // Get five twitter results per tag
-        for(var i = 0; i < TRENDS.length; i++){
-          
-          twit.get('search/tweets', {q : (encodeURIComponent('#') + TRENDS[i]), 
-          result_type : 'popular', count : '6' }, function(error, tweets, response){
-            if(!error){
-              for(var j = 0; j < tweets.statuses.length; j++){
-                TWEETS.push(tweets.statuses[j].text);
-                USERS.push(tweets.statuses[j].user.screen_name);
+        // Get six twitter results per tag          
+        twit.get('search/tweets', {q : (encodeURIComponent('#') + TRENDS[0] + ' OR ' + encodeURIComponent('#') + TRENDS[1] + ' OR ' + encodeURIComponent('#') + TRENDS[2]), 
+        result_type : 'popular', count : '6' }, function(error, tweets, response){
+          if(!error){
+            for(var j = 0; j < tweets.statuses.length; j++){
+              TWEETS.push(tweets.statuses[j].text);
+              USERS.push(tweets.statuses[j].user.screen_name);
+              
+              if(j == tweets.statuses.length - 1){
+                var finalData = {
+                  user: USERS,
+                  tweet: TWEETS,
+                  trend: TRENDS
+                };
                 
-                if(j == tweets.statuses.length - 1){
-                  var finalData = {
-                    user: USERS,
-                    tweet: TWEETS,
-                    trend: TRENDS
-                  };
-                  
-                  finalDataStr = JSON.stringify(finalData, null, '\t');
-                  res.writeHead(200, {'Content-Type': 'text/json'});
-                  res.end(finalDataStr);
-                }
+                finalDataStr = JSON.stringify(finalData, null, '\t');
+                res.writeHead(200, {'Content-Type': 'text/json'});
+                res.end(finalDataStr);
               }
             }
-            
-          });
+          }
           
-        }
+        });
         
       }
     });
