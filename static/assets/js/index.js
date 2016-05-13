@@ -92,15 +92,7 @@ $(document).ready(function(){
     $.get( "api", function(responseData) {
         var serverData = responseData;
         
-        var data = {
-            picture: '/images/pic02.jpg',
-            description: 'This is an obj title. Yeet yah yeet yah punjabi on the fire track whip drop nae nae',
-            origin: 'instagram',
-            username: 'jack',
-            link: '#'
-        };
-        
-        $('#result').append(generateItem(data));
+        $('#trends').html($('#trends').html() + serverData.trend[0] + '<br />' + serverData.trend[1] + '<br />' + serverData.trend[2]);
         for(var i = 0; i < serverData.user.length; i++){
             var data = {
                 picture: '/images/pic02.jpg',
@@ -109,7 +101,6 @@ $(document).ready(function(){
                 username: (serverData.user)[i],
                 link: '#'
             };
-            console.log((serverData.tweet)[i]);
             $('#result').append(generateItem(data));
         }
     
