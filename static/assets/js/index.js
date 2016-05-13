@@ -102,14 +102,22 @@ function generateItem(data){
     return item; 
 }
 
+function loadToItem(parent, items,  round){
+    for(var i = 0; i < 6; i++){
+        parent.append(items[i]);
+    }
+        
+}
+
 $(document).ready(function(){
     
     // Get server info
     $.get( "api", function(responseData) {
         var serverData = responseData;
+        tweetCount = 1;
         
         $('#trends').html($('#trends').html() + serverData.trend[0] + '<br />' + serverData.trend[1] + '<br />' + serverData.trend[2]);
-        for(var i = 0; i < serverData.user.length; i++){
+        for(var i = 0; i < 6; i++){
             var data = {
                 picture: '/images/pic02.jpg',
                 description: (serverData.tweet)[i],
@@ -119,6 +127,20 @@ $(document).ready(function(){
             };
             $('#result').append(generateItem(data));
         }
+        
+        $('#moreBtn').click(function(){
+            for(var i = 6 * i; i < (i + 6); i++){
+                var data = {
+                    picture: '/images/pic02.jpg',
+                    description: (serverData.tweet)[i],
+                    origin: 'twitter',
+                    username: (serverData.user)[i],
+                    link: '#'
+                };
+                $('#result').append(generateItem(data));
+                tweetCount++;
+            }
+        });
     
     });
 });
