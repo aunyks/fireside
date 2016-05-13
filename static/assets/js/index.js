@@ -1,5 +1,5 @@
 function linkify(str, href){
-    return '<a href="' + href + '" target="_blank" style="color: #4099FF">' + str + '</a>';
+    return '<a href="' + href + '" target="_blank" style="color: #FFF">' + str + '</a>';
 }
 
 function generateHeader(txt, link){
