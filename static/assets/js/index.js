@@ -1,12 +1,28 @@
+function linkify(str, href){
+    return '<a href="' + href + '" target="_blank" style="color: #4099FF">' + str + '</a>';
+}
+
 function generateHeader(txt, link){
-    var mLink = $('<a></a>');
-    mLink.attr('href', link);
-    
     var titleTxt = $('<h3></h3>');
     titleTxt.text(txt);
     
-    mLink.append(titleTxt);
-    return mLink;
+    var text = titleTxt.text();
+    var words = text.split(' ');
+    
+    for(var i = 0; i < words.length; i++){
+        if(words[i].charAt(0) === '@')
+            words[i] = linkify(words[i], 'https://twitter.com/' + words[i].substring(1, words[i].length));
+            
+        if(words[i].charAt(0) === '#')
+            words[i] = linkify(words[i], 'https://twitter.com/search?q=' + encodeURIComponent('#') + words[i].substring(1, words[i].length));
+            
+        if(words[i].substring(0, 5) === 'https')
+            words[i] = linkify(words[i], words[i]);
+    }
+    
+    titleTxt.text(words.join(' '));
+    
+    return titleTxt;
 }
 
 function generateImage(link, src){
