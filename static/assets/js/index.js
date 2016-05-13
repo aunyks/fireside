@@ -4,9 +4,9 @@ function linkify(str, href){
 
 function generateHeader(txt, link){
     var titleTxt = $('<h3></h3>');
-    titleTxt.text(txt);
+    titleTxt.html(txt);
     
-    var text = titleTxt.text();
+    var text = titleTxt.html();
     var words = text.split(' ');
     
     for(var i = 0; i < words.length; i++){
@@ -20,7 +20,7 @@ function generateHeader(txt, link){
             words[i] = linkify(words[i], words[i]);
     }
     
-    titleTxt.text(words.join(' '));
+    titleTxt.html(words.join(' '));
     
     return titleTxt;
 }
