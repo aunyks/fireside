@@ -8,8 +8,9 @@
     "start": "node --use_strict start.js",
     "test": "node --use_strict app.js"
   },
-  "author": "Gerald Nash <g.nash.dev@gmail.com>",
-  "license": "ISC",
+  "author": "Gerald Nash <g.nash.dev@gmail.com> (http://gnash48.github.io/)",
+  "license": "GPL-v3",
+  "homepage": "http://fireside-gnash48.rhcloud.com/",
   "dependencies": {
     "express": "^4.13.4",
     "twitter": "^1.2.5"
