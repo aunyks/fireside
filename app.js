@@ -18,10 +18,10 @@ String.prototype.contains = function(str){
 }
 
 var twit = new Twitter({
-    consumer_key: 'jZ2W9rJsOgo5f9cFwoMycuykg',
-    consumer_secret: 'F2LKABlbItYj5iFmurDg7KkJbqoEJe9yn2thUASWOzQs3xIpe9',
-    access_token_key: '730165507387592704-qHDf74o7a28Bc8g3OciFSfxFKUAXcUb',
-    access_token_secret: 'orsrcajy6EtrCLLV31bu0uAgzDt4n1s0sRXmow6IU0p2h',
+    consumer_key: process.env.TWITTER_CONSUMER_KEY,
+    consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+    access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+    access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
 });
 
 let server = http.createServer(function (req, res) {
