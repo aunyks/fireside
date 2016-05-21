@@ -3,11 +3,10 @@ const http         = require('http'),
       path         = require('path'),
       contentTypes = require('./utils/content-types'),
       sysInfo      = require('./utils/sys-info'),
-      dotenv       = require('dotenv').config(),
       Twitter      = require('twitter'),
-      Instagram    = require('instagram-wrapi'),
       env          = process.env;
 
+// These prototype aggregations will be used later in the program
 String.prototype.replaceAll = function(search, replacement) {
     var target = this;
     return target.split(search).join(replacement);
@@ -17,13 +16,15 @@ String.prototype.contains = function(str){
   return this.indexOf(str) != -1;
 }
 
+// Set API credentials
 var twit = new Twitter({
-    consumer_key: process.env.TWITTER_CONSUMER_KEY,
-    consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-    access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
-    access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
+    consumer_key: env.TWITTER_CONSUMER_KEY,
+    consumer_secret: env.TWITTER_CONSUMER_SECRET,
+    access_token_key: env.TWITTER_ACCESS_TOKEN_KEY,
+    access_token_secret: env.TWITTER_ACCESS_TOKEN_SECRET,
 });
 
+// Create application routes
 let server = http.createServer(function (req, res) {
   let url = req.url;
   if (url == '/') {
@@ -32,7 +33,6 @@ let server = http.createServer(function (req, res) {
 
   // IMPORTANT: Your application HAS to respond to GET /health with status 200
   //            for OpenShift health monitoring
-
   if (url == '/health') {
     res.writeHead(200);
     res.end();
@@ -42,13 +42,17 @@ let server = http.createServer(function (req, res) {
     res.end(JSON.stringify(sysInfo[url.slice(6)]()));
   } else if(url == '/twitter' || url == '/twitter/'){
 
-    // Get twitter trending results
+    // Declare/initialize persistent variables
     var TRENDS = [];
     var USERS = [];
     var TWEETS = [];
     var finalDataStr = '';
     var IG = [];
 
+    // This is our main call stack.
+    // 1. Get trends from the USA
+    // 2. Use Twitter API search to find the 48 most popular tweets related to the trends
+    // 3. Get the 48 tweets, parse them, and send them back to the browser
     twit.get('trends/place', {id : '23424977'}, function(error, trends, response){
       if(!error){
         var data = trends[0];
@@ -110,6 +114,9 @@ let server = http.createServer(function (req, res) {
   }
 });
 
+// Begin server!
+// If the environment doesnt specify a port then bind to 3000
+// If the environment doesnt specify an IP then load to localhost
 server.listen(env.NODE_PORT || 3000, env.NODE_IP || 'localhost', function () {
   console.log(`Application worker ${process.pid} started...`);
 });

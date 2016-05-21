@@ -128,6 +128,12 @@ $(document).ready(function(){
             $('#result').append(generateItem(data));
         }
 
+        $('#flameLogo').click(function(){
+          $('html, body').animate({
+              scrollTop: $("#four").offset().top
+          }, 2000);
+        });
+
         $('#moreBtn').click(function(){
             for(var i = 6 * tweetCount; i < serverData.tweet.length && (tweetCount * 6 + 6); i++){
                 var data = {

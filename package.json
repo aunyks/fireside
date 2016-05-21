@@ -1,25 +1,21 @@
 {
-  "name": "openshift-cartridge-nodejs-template",
+  "name": "Fireside",
   "version": "1.0.1",
-  "description": "Custom Node.js cartridge for OpenShift - sample application",
+  "description": "See the hottest stuff on Twitter and Vine.",
   "private": true,
   "main": "start.js",
   "scripts": {
     "start": "node --use_strict start.js",
     "test": "node --use_strict app.js"
   },
-  "author": "Ionut-Cristian Florescu <ionut.florescu@gmail.com>",
+  "author": "Gerald Nash <g.nash.dev@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^2.0.0",
     "express": "^4.13.4",
-    "instagram-wrapi": "^0.1.0",
     "twitter": "^1.2.5"
   },
   "devDependencies": {
-    "dotenv": "^2.0.0",
     "express": "^4.13.4",
-    "instagram-wrapi": "^0.1.0", 
     "twitter": "^1.2.5"
   }
 }
