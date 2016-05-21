@@ -130,7 +130,7 @@ $(document).ready(function(){
 
         $('#flameLogo').click(function(){
           $('html, body').animate({
-              scrollTop: $("#four").offset().top
+              scrollTop: $("#four").offset().top + 10
           }, 1000);
         });
 
