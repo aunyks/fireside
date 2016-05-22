@@ -72,7 +72,7 @@ let server = http.createServer(function (req, res) {
 
         // Get six twitter results per tag
         twit.get('search/tweets', {q : (encodeURIComponent('#') + TRENDS[0] + ' OR ' + encodeURIComponent('#') + TRENDS[1] + ' OR ' + encodeURIComponent('#') + TRENDS[2]),
-        result_type : 'popular', count : '48' }, function(error, tweets, response){
+        result_type : 'popular', count : '96' }, function(error, tweets, response){
           if(!error){
             for(var j = 0; j < tweets.statuses.length; j++){
               TWEETS.push(tweets.statuses[j].text);
