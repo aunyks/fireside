@@ -13,10 +13,12 @@
   "homepage": "http://fireside-gnash48.rhcloud.com/",
   "dependencies": {
     "express": "^4.13.4",
-    "twitter": "^1.2.5"
+    "twitter": "^1.2.5",
+    "vineapple": "^0.1.5"
   },
   "devDependencies": {
     "express": "^4.13.4",
-    "twitter": "^1.2.5"
+    "twitter": "^1.2.5",
+    "vineapple": "^0.1.5"
   }
 }

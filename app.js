@@ -4,6 +4,7 @@ const http         = require('http'),
       contentTypes = require('./utils/content-types'),
       sysInfo      = require('./utils/sys-info'),
       Twitter      = require('twitter'),
+      Vineapple    = require('vineapple'),
       env          = process.env;
 
 // These prototype aggregations will be used later in the program
@@ -24,6 +25,8 @@ var twit = new Twitter({
     access_token_secret: env.TWITTER_ACCESS_TOKEN_SECRET,
 });
 
+var vine = new Vineapple();
+
 // Create application routes
 let server = http.createServer(function (req, res) {
   let url = req.url;
@@ -41,6 +44,14 @@ let server = http.createServer(function (req, res) {
     res.setHeader('Cache-Control', 'no-cache, no-store');
     res.end(JSON.stringify(sysInfo[url.slice(6)]()));
   } else if(url == '/twitter' || url == '/twitter/'){
+
+    vine.login('Fireside Project', 'project_fireside', function(error, vineClient){
+
+      vineClient.popular(function(err, response){
+        console.log(response);
+      });
+
+    });
 
     // Declare/initialize persistent variables
     var TRENDS = [];
@@ -70,7 +81,6 @@ let server = http.createServer(function (req, res) {
             console.log(strTrend);
         }
 
-        // Get six twitter results per tag
         twit.get('search/tweets', {q : (encodeURIComponent('#') + TRENDS[0] + ' OR ' + encodeURIComponent('#') + TRENDS[1] + ' OR ' + encodeURIComponent('#') + TRENDS[2]),
         result_type : 'popular', count : '96' }, function(error, tweets, response){
           if(!error){
