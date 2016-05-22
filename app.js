@@ -47,7 +47,12 @@ let server = http.createServer(function (req, res) {
 
     vine.login('Fireside Project', 'project_fireside', function(error, vineClient){
 
+      if(error)
+        console.log('SOMETHING BROKE!');
+
       vineClient.popular(function(err, response){
+        if(err)
+          console.log('ANOTHER THING BROKE!');
         console.log(response);
       });
 
